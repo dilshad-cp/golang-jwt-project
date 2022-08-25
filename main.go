@@ -1,8 +1,9 @@
 package main
 
 import (
-	routes "golang-jwt-project/routes"
 	"os"
+
+	routes "github.com/dilshad-cp/golang-jwt-project/routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,7 +12,7 @@ func main() {
 	port := os.Getenv("PORT")
 
 	if port == "" {
-		port := "8000"
+		port = "8000"
 	}
 
 	router := gin.New()

@@ -10,7 +10,7 @@ import (
 
 func Authenticate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		clientToken := ctx.Request.Header.Get("token")
+		clientToken := ctx.Request.Header.Get("Authorization")
 
 		if clientToken == "" {
 			ctx.JSON(http.StatusBadRequest, gin.H{"error": "Auth token missing"})
@@ -18,7 +18,7 @@ func Authenticate() gin.HandlerFunc {
 			return
 		}
 		claims, err := helper.ValidateToken(clientToken)
-		if err != nil {
+		if err != "" {
 			ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Auth error"})
 			ctx.Abort()
 			return

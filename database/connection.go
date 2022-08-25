@@ -20,7 +20,7 @@ func DBinstance() *mongo.Client {
 	}
 	MongoDb := os.Getenv("MONGODB_URL")
 
-	client := mongo.NewClient(options.Client().ApplyURI(MongoDb))
+	client, err := mongo.NewClient(options.Client().ApplyURI(MongoDb))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,4 +34,11 @@ func DBinstance() *mongo.Client {
 	fmt.Println("Connected to mongodb")
 
 	return client
+}
+
+var Client *mongo.Client = DBinstance()
+
+func OpenCollection(client *mongo.Client, collectionName string) *mongo.Collection {
+	var collection *mongo.Collection = client.Database("cluster0").Collection(collectionName)
+	return collection
 }
